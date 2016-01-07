@@ -6,14 +6,18 @@ class ImportaHelper:
         campos = Importa.get_campos()
         tabela = Importa.get_tabela()
         query = "INSERT INTO %s(" % tabela
+        i = 0
         for item in campos:
-            if(item == campos[len(campos) -1]):
+            i += 1
+            if(i >= len(campos)):
                 query += item
             else:
                 query += item + ", "
         query += ") VALUES("
+        i = 0
         for item in dados:
-            if(item == dados[len(dados) -1]):
+            i += 1
+            if(i >= len(dados)):
                 query += "%s"
             else:
                 query += "%s, "
