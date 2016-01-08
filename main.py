@@ -12,7 +12,7 @@ class Main:
         control = ImportaController()
         path = sys.argv[1]
         tabela = sys.argv[2]
-        action = input("ImportaCSV - Digite 1 para INSERT, 2 para DELETE ou 0 para SAIR: ")
+        action = input("Digite 1 para INSERT, 2 para DELETE ou 0 para SAIR: ")
         if(action == '0'):
             sys.exit()
         elif(action == '1'):
@@ -20,8 +20,8 @@ class Main:
             control.importa_csv(path, tabela)
             print("Arquivo importado com sucesso!")
         elif(action == '2'):
-            caution = input("Os dados serão removidos do BD, tem certeza que quer continuar? 's' para Sim, 'n' para Não: ")
-            if(caution == 's'):
+            caution = input("Os dados serão removidos do BD, continuar? 'S' para Sim, 'N' para Não: ")
+            if(caution == 's' or caution == 'S'):
                 print("Removendo, aguarde...")
                 control.remove_csv(path, tabela)
                 print("Dados removidos com sucesso!")

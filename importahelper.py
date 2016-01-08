@@ -11,7 +11,6 @@ class ImportaHelper:
         return query
 
     def gera_query_delete(self, Importa):
-        dados = Importa.get_dados()
         campos = Importa.get_campos()
         tabela = Importa.get_tabela()
         query = "DELETE FROM %s WHERE " % tabela

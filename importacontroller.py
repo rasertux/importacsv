@@ -8,14 +8,9 @@ class ImportaController:
         arquivocsv = DictReader(open(path, 'r'))
         for dict in arquivocsv:
             imp = Importa()
-            keys=[]
-            values=[]
-            for k,v in dict.items():
-                keys.extend([k])
-                values.extend([v])
             imp.set_tabela(tabela)
-            imp.set_campos(keys)
-            imp.set_dados(values)
+            imp.set_campos(list(dict.keys()))
+            imp.set_dados(list(dict.values()))
             dao.insere_dados(imp)
 
     def remove_csv(self, path, tabela):
@@ -23,12 +18,7 @@ class ImportaController:
         arquivocsv = DictReader(open(path, 'r'))
         for dict in arquivocsv:
             imp = Importa()
-            keys=[]
-            values=[]
-            for k,v in dict.items():
-                keys.extend([k])
-                values.extend([v])
             imp.set_tabela(tabela)
-            imp.set_campos(keys)
-            imp.set_dados(values)
+            imp.set_campos(list(dict.keys()))
+            imp.set_dados(list(dict.values()))
             dao.deleta_dados(imp)

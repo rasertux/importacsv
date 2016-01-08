@@ -10,14 +10,11 @@ class ImportaDao:
         try:
             conexao = self.factory.get_conexao()
             cursor = conexao.cursor()
-            dados = Importa.get_dados()
-            args = ()
-            for item in dados:
-                args += (item,)
-            cursor.execute(self.helper.gera_query_insert(Importa), args)
+            dados = tuple(Importa.get_dados())
+            cursor.execute(self.helper.gera_query_insert(Importa), dados)
             conexao.commit()
         except Exception as e:
-            raise
+            print(e)
         finally:
             cursor.close()
             self.factory.fecha_conexao(conexao)
@@ -26,12 +23,11 @@ class ImportaDao:
         try:
             conexao = self.factory.get_conexao()
             cursor = conexao.cursor()
-            dados = Importa.get_dados()
-            args = (dados[0], )
-            cursor.execute(self.helper.gera_query_delete(Importa), args)
+            dados = tuple(Importa.get_dados())
+            cursor.execute(self.helper.gera_query_delete(Importa), dados)
             conexao.commit()
         except Exception as e:
-            raise
+            print(e)
         finally:
             cursor.close()
             self.factory.fecha_conexao(conexao)

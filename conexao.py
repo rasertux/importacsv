@@ -23,4 +23,4 @@ class ConexaoFactory:
             else:
                 return False
         except Exception as e:
-            raise
+            print(e)
