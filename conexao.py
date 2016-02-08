@@ -8,12 +8,10 @@ class ConexaoFactory:
     def get_conexao(self):
         try:
             self.conexao = mysql.connector.connect(host='localhost', database='teste', user='root', password='')
-            if (self.conexao.is_connected()):
-                return self.conexao
-            else:
-                return None
+            return self.conexao
         except Error as e:
             print(e)
+            return None
 
     def fecha_conexao(self, conexao):
         try:
