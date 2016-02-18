@@ -17,8 +17,5 @@ class ConexaoFactory:
         try:
             if (self.conexao.is_connected()):
                 self.conexao.close()
-                return True
-            else:
-                return False
         except Exception as e:
             print(e)
