@@ -5,9 +5,14 @@ from importacontroller import ImportaController
 
 class Main:
     if(len(sys.argv) != 3):
-        print("Sintaxe: python importacsv/main.py path tabela")
-        print("Onde path é o caminho para o arquivo")
-        print("tabela é o nome da tabela no banco de dados.")
+
+        print("Sintaxe:")
+        print("    python importacsv/main.py path tabela")
+        print("    Onde path é o caminho para o arquivo")
+        print("    tabela é o nome da tabela no banco de dados.")
+        print("OBS:")
+        print("    A primeira linha da coluna do arquivo CSV")
+        print("    deve possuir o nome do campo da tabela.")
     else:
         control = ImportaController()
         path = sys.argv[1]
@@ -17,14 +22,18 @@ class Main:
             sys.exit()
         elif(action == '1'):
             print("Importando, aguarde...")
-            control.importa_csv(path, tabela)
-            print("Arquivo importado com sucesso!")
+            if (control.importa_csv(path, tabela)):
+                print("Arquivo importado com sucesso!")
+            else:
+                print("Erro ao importar, verifique o arquivo.")
         elif(action == '2'):
             caution = input("Os dados serão removidos do BD, continuar? 'S' para Sim, 'N' para Não: ")
             if(caution == 's' or caution == 'S'):
                 print("Removendo, aguarde...")
-                control.remove_csv(path, tabela)
-                print("Dados removidos com sucesso!")
+                if (control.remove_csv(path, tabela)):
+                    print("Dados removidos com sucesso!")
+                else:
+                    print("Erro ao remover, verique o arquivo.")
             else:
                 sys.exit()
         else:

@@ -13,8 +13,10 @@ class ImportaDao:
             dados = tuple(Importa.get_dados())
             cursor.execute(self.helper.gera_query_insert(Importa), dados)
             conexao.commit()
+            return True
         except Exception as e:
             print(e)
+            return False
         finally:
             cursor.close()
             self.factory.fecha_conexao(conexao)
@@ -26,8 +28,10 @@ class ImportaDao:
             dados = tuple(Importa.get_dados())
             cursor.execute(self.helper.gera_query_delete(Importa), dados)
             conexao.commit()
+            return True
         except Exception as e:
             print(e)
+            return False
         finally:
             cursor.close()
             self.factory.fecha_conexao(conexao)
