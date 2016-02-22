@@ -1,5 +1,5 @@
 # importacsv
-ImportaCSV é um utilitario para importar ou remover dados a partir de arquivos
+ImportaCSV é um utilitario para importar, remover ou atualizar dados a partir de arquivos
 CSV para o banco de dados Mysql ou MariaDB.<br>
 <br>
 A primeira linha da coluna do arquivo CSV deve possuir o nome do campo da tabela.<br>
