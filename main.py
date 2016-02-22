@@ -17,7 +17,7 @@ class Main:
         control = ImportaController()
         path = sys.argv[1]
         tabela = sys.argv[2]
-        action = input("Digite 1 para INSERT, 2 para DELETE, 3 UPDATE ou 0 para SAIR: ")
+        action = input("Digite 1 para INSERT, 2 para DELETE, 3 para UPDATE ou 0 para SAIR: ")
         if(action == '0'):
             sys.exit()
         elif(action == '1'):
