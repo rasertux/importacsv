@@ -35,3 +35,18 @@ class ImportaDao:
         finally:
             cursor.close()
             self.factory.fecha_conexao(conexao)
+
+    def atualiza_dados(self, Importa):
+        try:
+            conexao = self.factory.get_conexao()
+            cursor = conexao.cursor()
+            dados = tuple(Importa.get_dados())
+            cursor.execute(self.helper.gera_query_update(Importa), dados)
+            conexao.commit()
+            return True
+        except Exception as e:
+            print(e)
+            return False
+        finally:
+            cursor.close()
+            self.factory.fecha_conexao(conexao)

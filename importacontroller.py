@@ -29,3 +29,16 @@ class ImportaController:
             self.status = dao.deleta_dados(imp)
             if (not self.status): break
         return self.status
+
+    def atualiza_csv(self, path, tabela, where):
+        dao = ImportaDao()
+        arquivocsv = DictReader(open(path, 'r'))
+        for dict in arquivocsv:
+            imp = Importa()
+            imp.set_tabela(tabela)
+            imp.set_where({where : dict.pop(where)})
+            imp.set_campos(list(dict.keys()))
+            imp.set_dados(list(dict.values()))
+            self.status = dao.atualiza_dados(imp)
+            if (not self.status): break
+        return self.status

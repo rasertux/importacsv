@@ -12,12 +12,12 @@ class Main:
         print("    tabela é o nome da tabela no banco de dados.")
         print("OBS:")
         print("    A primeira linha da coluna do arquivo CSV")
-        print("    deve possuir o nome do campo da tabela.")
+        print("    deve possuir os nomes dos campos da tabela.")
     else:
         control = ImportaController()
         path = sys.argv[1]
         tabela = sys.argv[2]
-        action = input("Digite 1 para INSERT, 2 para DELETE ou 0 para SAIR: ")
+        action = input("Digite 1 para INSERT, 2 para DELETE, 3 UPDATE ou 0 para SAIR: ")
         if(action == '0'):
             sys.exit()
         elif(action == '1'):
@@ -36,5 +36,12 @@ class Main:
                     print("Erro ao remover, verique o arquivo.")
             else:
                 sys.exit()
+        elif(action == '3'):
+            where = input("Informe o nome do campo que será utilizado na cláusula where: ")
+            print("Atualizando, aguarde...")
+            if (control.atualiza_csv(path, tabela, where)):
+                print("Dados atualizados com sucesso!")
+            else:
+                print("Erro ao atualizar, verique o arquivo.")
         else:
             sys.exit("Opção inválida!")
