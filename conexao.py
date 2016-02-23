@@ -7,7 +7,7 @@ class ConexaoFactory:
 
     def get_conexao(self):
         try:
-            self.conexao = mysql.connector.connect(host='localhost', database='teste', user='root', password='')
+            self.conexao = mysql.connector.connect(option_files='DB.cnf')
             return self.conexao
         except Error as e:
             print(e)

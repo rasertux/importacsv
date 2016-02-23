@@ -5,7 +5,6 @@ from importacontroller import ImportaController
 
 class Main:
     if(len(sys.argv) != 3):
-
         print("Sintaxe:")
         print("    python importacsv/main.py path tabela")
         print("    Onde path é o caminho para o arquivo")
