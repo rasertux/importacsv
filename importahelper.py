@@ -21,8 +21,7 @@ class ImportaHelper:
         campos = Importa.get_campos()
         tabela = Importa.get_tabela()
         wherecampo = list(Importa.get_where().keys())[0]
-        wherevalue = list(Importa.get_where().values())[0]
         query = "UPDATE %s SET " % tabela
         query += '=%s,'.join(campos) + '=%s'
-        query += " WHERE " + wherecampo + '=' + wherevalue
+        query += " WHERE " + wherecampo + '=%s'
         return query
