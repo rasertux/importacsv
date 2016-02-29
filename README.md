@@ -6,3 +6,5 @@ A primeira linha da coluna do arquivo CSV deve possuir os nomes dos campos da ta
 A sintaxe do ImportaCSV é: python importacsv/main.py path tabela<br>
 Onde path é o caminho para o arquivo<br>
 tabela é o nome da tabela no banco de dados.<br>
+<br>
+Necessita do MySQL Connector/Python que você pode encontrar nesse link <a href="https://dev.mysql.com/downloads/connector/python/"></a>
