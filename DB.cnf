@@ -1,5 +1,5 @@
 [client]
-host='localhost'
-database='teste'
-user='root'
-#password=''
+host = localhost
+database = teste
+user = root
+#password = 
