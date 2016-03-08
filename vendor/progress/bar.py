@@ -22,8 +22,8 @@ class Bar(WritelnMixin, Progress):
     width = 32
     message = ''
     suffix = '%(index)d/%(max)d'
-    bar_prefix = ' |'
-    bar_suffix = '| '
+    bar_prefix = ' ['
+    bar_suffix = '] '
     empty_fill = ' '
     fill = '#'
     hide_cursor = True
