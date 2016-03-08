@@ -1,5 +1,4 @@
-import mysql.connector
-from mysql.connector import Error
+import vendor.mysql.connector
 
 class ConexaoFactory:
     def __init__(self):
@@ -7,9 +6,9 @@ class ConexaoFactory:
 
     def get_conexao(self):
         try:
-            self.conexao = mysql.connector.connect(option_files='DB.cnf')
+            self.conexao = vendor.mysql.connector.connect(option_files='DB.cnf')
             return self.conexao
-        except Error as e:
+        except vendor.mysql.connector.Error as e:
             print(e)
             return None
 
@@ -17,5 +16,5 @@ class ConexaoFactory:
         try:
             if (self.conexao.is_connected()):
                 self.conexao.close()
-        except Exception as e:
+        except vendor.mysql.connector.Error as e:
             print(e)
