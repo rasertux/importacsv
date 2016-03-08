@@ -24,7 +24,7 @@ class Main:
             if(action == '0'):
                 sys.exit()
             elif(action == '1'):
-                print("Importando, aguarde...")
+                print("Processando, aguarde...")
                 if (self.control.importa_csv(path, tabela)):
                     print("Arquivo importado com sucesso!")
                 else:
@@ -32,7 +32,7 @@ class Main:
             elif(action == '2'):
                 caution = input("Os dados serão removidos do BD, continuar? 'S' para Sim, 'N' para Não: ")
                 if(caution == 's' or caution == 'S'):
-                    print("Removendo, aguarde...")
+                    print("Processando, aguarde...")
                     if (self.control.remove_csv(path, tabela)):
                         print("Dados removidos com sucesso!")
                     else:
@@ -41,7 +41,7 @@ class Main:
                     sys.exit()
             elif(action == '3'):
                 where = input("Informe o nome do campo que será utilizado na cláusula where: ")
-                print("Atualizando, aguarde...")
+                print("Processando, aguarde...")
                 if (self.control.atualiza_csv(path, tabela, where)):
                     print("Dados atualizados com sucesso!")
                 else:
