@@ -32,7 +32,7 @@ class ImportaHelper:
             query += ") VALUES(" + "%s," * (dados -1) + "%s);"
             return query
         except Exception as e:
-            self.logger.set_errors("Erro na linha %s." % countlinha)
+            self.logger.set_errors("Erro na linha %s do arquivo CSV." % countlinha)
             return None
 
     def gera_query_delete(self, Importa, countlinha):
@@ -43,7 +43,7 @@ class ImportaHelper:
             query += campos[0] + "=%s"
             return query
         except Exception as e:
-            self.logger.set_errors("Erro na linha %s." % countlinha)
+            self.logger.set_errors("Erro na linha %s do arquivo CSV." % countlinha)
             return None
 
     def gera_query_update(self, Importa, countlinha):
@@ -56,5 +56,5 @@ class ImportaHelper:
             query += " WHERE " + wherecampo + '=%s'
             return query
         except Exception as e:
-            self.logger.set_errors("Erro na linha %s." % countlinha)
+            self.logger.set_errors("Erro na linha %s do arquivo CSV." % countlinha)
             return None

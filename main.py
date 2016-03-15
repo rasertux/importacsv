@@ -50,7 +50,6 @@ class Main:
                 else:
                     for erro in self.logger.get_errors():
                         print(erro)
-                    print("Erro ao importar, verifique o arquivo.")
             elif(action == '2'):
                 caution = input("Os dados serão removidos do BD, continuar? 'S' para Sim, 'N' para Não: ")
                 if(caution == 's' or caution == 'S'):
@@ -60,7 +59,6 @@ class Main:
                     else:
                         for erro in self.logger.get_errors():
                             print(erro)
-                        print("Erro ao remover, verique o arquivo.")
                 else:
                     sys.exit()
             elif(action == '3'):
@@ -71,7 +69,6 @@ class Main:
                 else:
                     for erro in self.logger.get_errors():
                         print(erro)
-                    print("Erro ao atualizar, verique o arquivo.")
             else:
                 sys.exit("Opção inválida!")
 
