@@ -1,8 +1,8 @@
 #importacsv - utilitario para importar, remover ou atualizar dados
 #a partir de arquivos CSV para o banco de dados Mysql ou MariaDB.
-
+#
 # Copyright (c) 2015, 2016 Rafael Sergio da Costa <rasertux@gmail.com>
-
+#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation.
@@ -14,15 +14,17 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston,
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 import sys
 import os.path
 from importacontroller import ImportaController
+from logger import Logger
 
 class Main:
     def __init__(self):
-        self.control = ImportaController()
+        self.logger = Logger()
+        self.control = ImportaController(self.logger)
 
     def main(self):
         if(len(sys.argv) != 3):
@@ -46,6 +48,8 @@ class Main:
                 if (self.control.importa_csv(path, tabela)):
                     print("Arquivo importado com sucesso!")
                 else:
+                    for erro in self.logger.get_errors():
+                        print(erro)
                     print("Erro ao importar, verifique o arquivo.")
             elif(action == '2'):
                 caution = input("Os dados serão removidos do BD, continuar? 'S' para Sim, 'N' para Não: ")
@@ -54,6 +58,8 @@ class Main:
                     if (self.control.remove_csv(path, tabela)):
                         print("Dados removidos com sucesso!")
                     else:
+                        for erro in self.logger.get_errors():
+                            print(erro)
                         print("Erro ao remover, verique o arquivo.")
                 else:
                     sys.exit()
@@ -63,6 +69,8 @@ class Main:
                 if (self.control.atualiza_csv(path, tabela, where)):
                     print("Dados atualizados com sucesso!")
                 else:
+                    for erro in self.logger.get_errors():
+                        print(erro)
                     print("Erro ao atualizar, verique o arquivo.")
             else:
                 sys.exit("Opção inválida!")

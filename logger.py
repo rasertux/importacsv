@@ -7,10 +7,6 @@
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation.
 #
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation.
-#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -20,24 +16,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
-import vendor.mysql.connector
-import sys
-
-class ConexaoFactory:
+class Logger:
     def __init__(self):
-        self.conexao = ''
+        self.errors = []
 
-    def get_conexao(self):
-        try:
-            self.conexao = vendor.mysql.connector.connect(option_files='DB.cnf')
-            return self.conexao
-        except vendor.mysql.connector.Error as e:
-            print(e)
-            sys.exit("Verifique os dados de conexão com o banco de dados!")
+    def get_errors(self):
+        return self.errors
 
-    def fecha_conexao(self, conexao):
-        try:
-            if (self.conexao.is_connected()):
-                self.conexao.close()
-        except vendor.mysql.connector.Error as e:
-            print(e)
+    def set_errors(self, errors):
+        self.errors.append(errors)
