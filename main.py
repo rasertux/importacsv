@@ -1,5 +1,5 @@
-#importacsv - utilitario para importar, remover ou atualizar dados
-#a partir de arquivos CSV para o banco de dados Mysql ou MariaDB.
+# importacsv - utilitario para importar, remover ou atualizar dados
+# a partir de arquivos CSV para o banco de dados Mysql ou MariaDB.
 #
 # Copyright (c) 2015, 2016 Rafael Sergio da Costa <rasertux@gmail.com>
 #
@@ -44,7 +44,7 @@ OBS:
             path = sys.argv[1]
             tabela = sys.argv[2]
             action = input("""\
-Digite 1 para INSERT, 2 para DELETE, 3 para UPDATE ou 0 para SAIR:""")
+Digite 1 para INSERT, 2 para DELETE, 3 para UPDATE ou 0 para SAIR: """)
             if(action == '0'):
                 sys.exit()
             elif(action == '1'):
@@ -57,7 +57,7 @@ Digite 1 para INSERT, 2 para DELETE, 3 para UPDATE ou 0 para SAIR:""")
             elif(action == '2'):
                 caution = input("""\
 Os dados serão removidos do Banco de Dados, continuar?
-'S' para Sim, 'N' para Não:""")
+'S' para Sim, 'N' para Não: """)
                 if(caution == 's' or caution == 'S'):
                     print("Processando, aguarde...")
                     if (self.control.remove_csv(path, tabela)):
@@ -69,7 +69,7 @@ Os dados serão removidos do Banco de Dados, continuar?
                     sys.exit()
             elif(action == '3'):
                 where = input("""\
-Informe o nome do campo que será utilizado na cláusula where:""")
+Informe o nome do campo que será utilizado na cláusula where: """)
                 print("Processando, aguarde...")
                 if (self.control.atualiza_csv(path, tabela, where)):
                     print("Dados atualizados com sucesso!")

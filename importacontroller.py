@@ -1,5 +1,5 @@
-#importacsv - utilitario para importar, remover ou atualizar dados
-#a partir de arquivos CSV para o banco de dados Mysql ou MariaDB.
+# importacsv - utilitario para importar, remover ou atualizar dados
+# a partir de arquivos CSV para o banco de dados Mysql ou MariaDB.
 #
 # Copyright (c) 2015, 2016 Rafael Sergio da Costa <rasertux@gmail.com>
 #
@@ -44,7 +44,8 @@ class ImportaController:
             query = self.helper.gera_query_insert(self.imp, l)
             if(not self.dao.run_query(self.conexao, cursor, self.imp, query)):
                 break
-            bar.next()
+            if query:
+                bar.next()
         bar.finish()
         cursor.close()
         self.factory.fecha_conexao(self.conexao)
@@ -61,7 +62,8 @@ class ImportaController:
             query = self.helper.gera_query_delete(self.imp, l)
             if(not self.dao.run_query(self.conexao, cursor, self.imp, query)):
                 break
-            bar.next()
+            if query:
+                bar.next()
         bar.finish()
         cursor.close()
         self.factory.fecha_conexao(self.conexao)
@@ -79,7 +81,8 @@ class ImportaController:
             query = self.helper.gera_query_update(self.imp, l)
             if(not self.dao.run_query(self.conexao, cursor, self.imp, query)):
                 break
-            bar.next()
+            if query:
+                bar.next()
         bar.finish()
         cursor.close()
         self.factory.fecha_conexao(self.conexao)

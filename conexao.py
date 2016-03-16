@@ -1,11 +1,7 @@
-#importacsv - utilitario para importar, remover ou atualizar dados
-#a partir de arquivos CSV para o banco de dados Mysql ou MariaDB.
+# importacsv - utilitario para importar, remover ou atualizar dados
+# a partir de arquivos CSV para o banco de dados Mysql ou MariaDB.
 #
 # Copyright (c) 2015, 2016 Rafael Sergio da Costa <rasertux@gmail.com>
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
