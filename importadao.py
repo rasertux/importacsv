@@ -22,7 +22,8 @@ class ImportaDao:
 
     def run_query(self, conexao, cursor, Importa, query):
         try:
-            dados = tuple(Importa.get_dados()) + tuple(Importa.get_where().values())
+            dados = tuple(Importa.get_dados())
+            dados += tuple(Importa.get_where().values())
             cursor.execute(query, dados)
             conexao.commit()
             return True

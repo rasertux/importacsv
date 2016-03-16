@@ -20,8 +20,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
-import vendor.mysql.connector
+from vendor.mysql.connector import connect
+from vendor.mysql.connector import Error
 import sys
+
 
 class ConexaoFactory:
     def __init__(self):
@@ -29,9 +31,9 @@ class ConexaoFactory:
 
     def get_conexao(self):
         try:
-            self.conexao = vendor.mysql.connector.connect(option_files='DB.cnf')
+            self.conexao = connect(option_files='DB.cnf')
             return self.conexao
-        except vendor.mysql.connector.Error as e:
+        except Error as e:
             print(e)
             sys.exit("Verifique os dados de conexão com o banco de dados!")
 
@@ -39,5 +41,5 @@ class ConexaoFactory:
         try:
             if (self.conexao.is_connected()):
                 self.conexao.close()
-        except vendor.mysql.connector.Error as e:
+        except Error as e:
             print(e)

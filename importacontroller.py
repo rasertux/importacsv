@@ -23,10 +23,10 @@ from importadao import ImportaDao
 from importahelper import ImportaHelper
 from vendor.progress.bar import Bar
 
+
 class ImportaController:
     def __init__(self, logger):
         self.logger = logger
-        self.countlinha = 1
         self.factory = ConexaoFactory()
         self.conexao = self.factory.get_conexao()
         self.dao = ImportaDao(logger)
@@ -37,13 +37,13 @@ class ImportaController:
         cursor = self.conexao.cursor()
         bar = Bar('Importando:', max=len(list(open(path, 'r')))-1)
         arquivocsv = DictReader(open(path, 'r'))
-        for dict in arquivocsv:
-            self.countlinha += 1
+        for l, dict in enumerate(arquivocsv):
             self.imp.set_tabela(tabela)
             self.imp.set_campos(list(dict.keys()))
             self.imp.set_dados(list(dict.values()))
-            query = self.helper.gera_query_insert(self.imp, self.countlinha)
-            if(not self.dao.run_query(self.conexao, cursor, self.imp, query)): break
+            query = self.helper.gera_query_insert(self.imp, l)
+            if(not self.dao.run_query(self.conexao, cursor, self.imp, query)):
+                break
             bar.next()
         bar.finish()
         cursor.close()
@@ -54,13 +54,13 @@ class ImportaController:
         cursor = self.conexao.cursor()
         bar = Bar('Removendo:', max=len(list(open(path, 'r')))-1)
         arquivocsv = DictReader(open(path, 'r'))
-        for dict in arquivocsv:
-            self.countlinha += 1
+        for l, dict in enumerate(arquivocsv):
             self.imp.set_tabela(tabela)
             self.imp.set_campos(list(dict.keys()))
             self.imp.set_dados(list(dict.values()))
-            query = self.helper.gera_query_delete(self.imp, self.countlinha)
-            if(not self.dao.run_query(self.conexao, cursor, self.imp, query)): break
+            query = self.helper.gera_query_delete(self.imp, l)
+            if(not self.dao.run_query(self.conexao, cursor, self.imp, query)):
+                break
             bar.next()
         bar.finish()
         cursor.close()
@@ -71,14 +71,14 @@ class ImportaController:
         cursor = self.conexao.cursor()
         bar = Bar('Atualizando:', max=len(list(open(path, 'r')))-1)
         arquivocsv = DictReader(open(path, 'r'))
-        for dict in arquivocsv:
-            self.countlinha += 1
+        for l, dict in enumerate(arquivocsv):
             self.imp.set_tabela(tabela)
-            self.imp.set_where({where : dict.pop(where)})
+            self.imp.set_where({where: dict.pop(where)})
             self.imp.set_campos(list(dict.keys()))
             self.imp.set_dados(list(dict.values()))
-            query = self.helper.gera_query_update(self.imp, self.countlinha)
-            if(not self.dao.run_query(self.conexao, cursor, self.imp, query)): break
+            query = self.helper.gera_query_update(self.imp, l)
+            if(not self.dao.run_query(self.conexao, cursor, self.imp, query)):
+                break
             bar.next()
         bar.finish()
         cursor.close()

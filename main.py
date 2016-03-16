@@ -21,6 +21,7 @@ import os.path
 from importacontroller import ImportaController
 from logger import Logger
 
+
 class Main:
     def __init__(self):
         self.logger = Logger()
@@ -28,19 +29,22 @@ class Main:
 
     def main(self):
         if(len(sys.argv) != 3):
-            print("Sintaxe:")
-            print("    python importacsv/main.py path tabela")
-            print("    Onde path é o caminho para o arquivo")
-            print("    tabela é o nome da tabela no banco de dados.")
-            print("OBS:")
-            print("    A primeira linha da coluna do arquivo CSV")
-            print("    deve possuir os nomes dos campos da tabela.")
+            print("""
+Sintaxe:
+    python importacsv/main.py path tabela
+    Onde path é o caminho para o arquivo
+    tabela é o nome da tabela no banco de dados.
+OBS:
+    A primeira linha da coluna do arquivo CSV
+    deve possuir os nomes dos campos da tabela.
+                """)
         elif(not os.path.isfile(sys.argv[1])):
             sys.exit("Arquivo não encontrado!")
         else:
             path = sys.argv[1]
             tabela = sys.argv[2]
-            action = input("Digite 1 para INSERT, 2 para DELETE, 3 para UPDATE ou 0 para SAIR: ")
+            action = input("""\
+Digite 1 para INSERT, 2 para DELETE, 3 para UPDATE ou 0 para SAIR:""")
             if(action == '0'):
                 sys.exit()
             elif(action == '1'):
@@ -51,7 +55,9 @@ class Main:
                     for erro in self.logger.get_errors():
                         print(erro)
             elif(action == '2'):
-                caution = input("Os dados serão removidos do BD, continuar? 'S' para Sim, 'N' para Não: ")
+                caution = input("""\
+Os dados serão removidos do Banco de Dados, continuar?
+'S' para Sim, 'N' para Não:""")
                 if(caution == 's' or caution == 'S'):
                     print("Processando, aguarde...")
                     if (self.control.remove_csv(path, tabela)):
@@ -62,7 +68,8 @@ class Main:
                 else:
                     sys.exit()
             elif(action == '3'):
-                where = input("Informe o nome do campo que será utilizado na cláusula where: ")
+                where = input("""\
+Informe o nome do campo que será utilizado na cláusula where:""")
                 print("Processando, aguarde...")
                 if (self.control.atualiza_csv(path, tabela, where)):
                     print("Dados atualizados com sucesso!")
