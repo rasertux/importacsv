@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 # importacsv - utilitario para importar, remover ou atualizar dados
 # a partir de arquivos CSV para o banco de dados Mysql ou MariaDB.
 #
@@ -27,8 +29,8 @@ class Main:
         self.logger = Logger()
         self.control = ImportaController(self.logger)
 
-    def main(self):
-        if(len(sys.argv) != 3):
+    def main(self, argv):
+        if(len(argv) != 3):
             print("""
 Sintaxe:
     python importacsv/main.py path tabela
@@ -38,11 +40,11 @@ OBS:
     A primeira linha da coluna do arquivo CSV
     deve possuir os nomes dos campos da tabela.
                 """)
-        elif(not os.path.isfile(sys.argv[1])):
+        elif(not os.path.isfile(argv[1])):
             sys.exit("Arquivo não encontrado!")
         else:
-            path = sys.argv[1]
-            tabela = sys.argv[2]
+            path = argv[1]
+            tabela = argv[2]
             action = input("""\
 Digite 1 para INSERT, 2 para DELETE, 3 para UPDATE ou 0 para SAIR: """)
             if(action == '0'):
@@ -81,4 +83,4 @@ Informe o nome do campo que será utilizado na cláusula where: """)
 
 if __name__ == "__main__":
     m = Main()
-    m.main()
+    m.main(sys.argv)
