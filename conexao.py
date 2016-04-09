@@ -32,10 +32,3 @@ class ConexaoFactory:
         except Error as e:
             print(e)
             sys.exit("Verifique os dados de conexão com o banco de dados!")
-
-    def fecha_conexao(self, conexao):
-        try:
-            if (self.conexao.is_connected()):
-                self.conexao.close()
-        except Error as e:
-            print(e)

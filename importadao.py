@@ -17,17 +17,21 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 class ImportaDao:
-    def __init__(self, logger):
+    def __init__(self, conexao, logger):
+        self.conexao = conexao
         self.logger = logger
 
-    def run_query(self, conexao, cursor, Importa, query):
+    def run_query(self, Importa, query):
         try:
+            cursor = self.conexao.cursor()
             dados = tuple(Importa.get_dados())
             dados += tuple(Importa.get_where().values())
             cursor.execute(query, dados)
-            conexao.commit()
+            self.conexao.commit()
             return True
         except Exception as e:
-            conexao.rollback()
+            self.conexao.rollback()
             self.logger.set_errors(e)
             return False
+        finally:
+            cursor.close()    
