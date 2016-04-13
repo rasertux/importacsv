@@ -77,6 +77,3 @@ class ImportaController:
                     bar.next()
         bar.finish()
         return not self.logger.get_errors() if True else False
-
-    def __del__(self):
-        self.conexao.close()

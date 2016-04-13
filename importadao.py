@@ -34,4 +34,8 @@ class ImportaDao:
             self.logger.set_errors(e)
             return False
         finally:
-            cursor.close()    
+            cursor.close()
+
+    def __del__(self):
+        if(self.conexao.is_connected()):
+            self.conexao.close()
