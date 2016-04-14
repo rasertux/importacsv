@@ -33,7 +33,7 @@ class Main:
         if(len(argv) != 3):
             print("""
 Sintaxe:
-    python importacsv/main.py path tabela
+    python main.py path tabela
     Onde path é o caminho para o arquivo
     tabela é o nome da tabela no banco de dados.
 OBS:
@@ -60,7 +60,7 @@ Digite 1 para INSERT, 2 para DELETE, 3 para UPDATE ou 0 para SAIR: """)
                 caution = input("""\
 Os dados serão removidos do Banco de Dados, continuar?
 'S' para Sim, 'N' para Não: """)
-                if(caution == 's' or caution == 'S'):
+                if(caution.upper() == "S"):
                     print("Processando, aguarde...")
                     if (self.control.remove_csv(path, tabela)):
                         print("Dados removidos com sucesso!")

@@ -39,7 +39,7 @@ class ImportaController:
                 self.imp.set_tabela(tabela)
                 self.imp.set_campos(list(dict.keys()))
                 self.imp.set_dados(list(dict.values()))
-                query = self.helper.gera_query_insert(self.imp, l)
+                query = self.helper.gera_query_insert(self.imp, l+2)
                 if(not self.dao.run_query(self.imp, query)):
                     break
                 if query:
@@ -54,7 +54,7 @@ class ImportaController:
                 self.imp.set_tabela(tabela)
                 self.imp.set_campos(list(dict.keys()))
                 self.imp.set_dados(list(dict.values()))
-                query = self.helper.gera_query_delete(self.imp, l)
+                query = self.helper.gera_query_delete(self.imp, l+2)
                 if(not self.dao.run_query(self.imp, query)):
                     break
                 if query:
@@ -70,7 +70,7 @@ class ImportaController:
                 self.imp.set_where({where: dict.pop(where)})
                 self.imp.set_campos(list(dict.keys()))
                 self.imp.set_dados(list(dict.values()))
-                query = self.helper.gera_query_update(self.imp, l)
+                query = self.helper.gera_query_update(self.imp, l+2)
                 if(not self.dao.run_query(self.imp, query)):
                     break
                 if query:
