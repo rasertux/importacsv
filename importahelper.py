@@ -23,7 +23,7 @@ class ImportaHelper:
     def __init__(self, logger):
         self.logger = logger
 
-    def gera_query_insert(self, Importa, l):
+    def gera_query_insert(self, Importa, linha):
         dados = len(Importa.get_dados())
         campos = Importa.get_campos()
         tabela = Importa.get_tabela()
@@ -33,10 +33,10 @@ class ImportaHelper:
             query += ") VALUES(" + "%s," * (dados - 1) + "%s);"
             return query
         except Exception as e:
-            self.logger.set_errors("Erro na linha %s do arquivo CSV." % l)
+            self.logger.set_errors("Erro na linha %s do arquivo CSV." % linha)
             return None
 
-    def gera_query_delete(self, Importa, l):
+    def gera_query_delete(self, Importa, linha):
         campos = Importa.get_campos()
         tabela = Importa.get_tabela()
         try:
@@ -44,10 +44,10 @@ class ImportaHelper:
             query += campos[0] + "=%s"
             return query
         except Exception as e:
-            self.logger.set_errors("Erro na linha %s do arquivo CSV." % l)
+            self.logger.set_errors("Erro na linha %s do arquivo CSV." % linha)
             return None
 
-    def gera_query_update(self, Importa, l):
+    def gera_query_update(self, Importa, linha):
         campos = Importa.get_campos()
         tabela = Importa.get_tabela()
         try:
@@ -57,5 +57,5 @@ class ImportaHelper:
             query += " WHERE " + wherecampo + '=%s'
             return query
         except Exception as e:
-            self.logger.set_errors("Erro na linha %s do arquivo CSV." % l)
+            self.logger.set_errors("Erro na linha %s do arquivo CSV." % linha)
             return None

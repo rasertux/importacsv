@@ -35,11 +35,11 @@ class ImportaController:
     def importa_csv(self, path, tabela):
         bar = Bar('Importando:', max=len(list(open(path, 'r')))-1)
         with open(path, 'r') as arquivocsv:
-            for l, dict in enumerate(DictReader(arquivocsv)):
+            for linha, dict in enumerate(DictReader(arquivocsv)):
                 self.imp.set_tabela(tabela)
                 self.imp.set_campos(list(dict.keys()))
                 self.imp.set_dados(list(dict.values()))
-                query = self.helper.gera_query_insert(self.imp, l+2)
+                query = self.helper.gera_query_insert(self.imp, linha+2)
                 if(not self.dao.run_query(self.imp, query)):
                     break
                 if query:
@@ -50,11 +50,11 @@ class ImportaController:
     def remove_csv(self, path, tabela):
         bar = Bar('Removendo:', max=len(list(open(path, 'r')))-1)
         with open(path, 'r') as arquivocsv:
-            for l, dict in enumerate(DictReader(arquivocsv)):
+            for linha, dict in enumerate(DictReader(arquivocsv)):
                 self.imp.set_tabela(tabela)
                 self.imp.set_campos(list(dict.keys()))
                 self.imp.set_dados(list(dict.values()))
-                query = self.helper.gera_query_delete(self.imp, l+2)
+                query = self.helper.gera_query_delete(self.imp, linha+2)
                 if(not self.dao.run_query(self.imp, query)):
                     break
                 if query:
@@ -65,12 +65,12 @@ class ImportaController:
     def atualiza_csv(self, path, tabela, where = None):
         bar = Bar('Atualizando:', max=len(list(open(path, 'r')))-1)
         with open(path, 'r') as arquivocsv:
-            for l, dict in enumerate(DictReader(arquivocsv)):
+            for linha, dict in enumerate(DictReader(arquivocsv)):
                 self.imp.set_tabela(tabela)
                 self.imp.set_where({where: dict.pop(where)})
                 self.imp.set_campos(list(dict.keys()))
                 self.imp.set_dados(list(dict.values()))
-                query = self.helper.gera_query_update(self.imp, l+2)
+                query = self.helper.gera_query_update(self.imp, linha+2)
                 if(not self.dao.run_query(self.imp, query)):
                     break
                 if query:
