@@ -18,10 +18,10 @@
 
 class Logger:
     def __init__(self):
-        self.errors = []
+        self._errors = []
 
     def get_errors(self):
-        return self.errors
+        return self._errors
 
     def set_errors(self, errors):
-        self.errors.append(errors)
+        self._errors.append(errors)

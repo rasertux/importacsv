@@ -18,31 +18,31 @@
 
 class Importa:
     def __init__(self):
-        self.dados = []
-        self.campos = []
-        self.tabela = ""
-        self.where = {}
+        self._dados = []
+        self._campos = []
+        self._tabela = ""
+        self._where = {}
 
     def get_dados(self):
-        return self.dados
+        return self._dados
 
     def set_dados(self, dados=[]):
-        self.dados = dados
+        self._dados = dados
 
     def get_campos(self):
-        return self.campos
+        return self._campos
 
     def set_campos(self, campos=[]):
-        self.campos = campos
+        self._campos = campos
 
     def get_tabela(self):
-        return self.tabela
+        return self._tabela
 
     def set_tabela(self, tabela):
-        self.tabela = tabela
+        self._tabela = tabela
 
     def get_where(self):
-        return self.where
+        return self._where
 
     def set_where(self, where={}):
-        self.where = where
+        self._where = where
