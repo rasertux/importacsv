@@ -82,5 +82,9 @@ Informe o nome do campo que será utilizado na cláusula where: """)
                 sys.exit("Opção inválida!")
 
 if __name__ == "__main__":
-    m = Main()
-    m.main(sys.argv)
+    try:
+        m = Main()
+        m.main(sys.argv)
+    except KeyboardInterrupt:
+        print("\n")
+        sys.exit("Cancelado pelo usuário!")
