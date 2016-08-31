@@ -62,11 +62,15 @@ class ImportaController:
         bar.finish()
         return not self.logger.get_errors() if True else False
 
-    def atualiza_csv(self, path, tabela, where = None):
+    def atualiza_csv(self, path, tabela, where):
         bar = Bar('Atualizando:', max=len(list(open(path, 'r')))-1)
         with open(path, 'r') as arquivocsv:
             for linha, dict in enumerate(DictReader(arquivocsv)):
                 self.imp.set_tabela(tabela)
+                if (not where or where not in dict):
+                    self.logger.set_errors(
+                        "Cláusula \"Where\" não informada ou inválida!")
+                    break
                 self.imp.set_where({where: dict.pop(where)})
                 self.imp.set_campos(list(dict.keys()))
                 self.imp.set_dados(list(dict.values()))
