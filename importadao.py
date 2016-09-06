@@ -16,6 +16,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
+from vendor.mysql.connector import Error
+
+
 class ImportaDao:
     def __init__(self, conexao, logger):
         self.conexao = conexao
@@ -29,7 +32,7 @@ class ImportaDao:
             cursor.execute(query, dados)
             self.conexao.commit()
             return True
-        except Exception as e:
+        except Error as e:
             self.conexao.rollback()
             self.logger.set_errors(e)
             return False

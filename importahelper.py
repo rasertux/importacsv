@@ -22,6 +22,7 @@ from importamodel import Importa
 class ImportaHelper:
     def __init__(self, logger):
         self.logger = logger
+        self.error_message = "Erro na linha %s do arquivo CSV."
 
     def gera_query_insert(self, Importa, linha):
         dados = len(Importa.get_dados())
@@ -33,7 +34,7 @@ class ImportaHelper:
             query += ") VALUES(" + "%s," * (dados - 1) + "%s);"
             return query
         except Exception as e:
-            self.logger.set_errors("Erro na linha %s do arquivo CSV." % linha)
+            self.logger.set_errors(self.error_message % linha)
             return None
 
     def gera_query_delete(self, Importa, linha):
@@ -44,7 +45,7 @@ class ImportaHelper:
             query += campos[0] + "=%s"
             return query
         except Exception as e:
-            self.logger.set_errors("Erro na linha %s do arquivo CSV." % linha)
+            self.logger.set_errors(self.error_message % linha)
             return None
 
     def gera_query_update(self, Importa, linha):
@@ -57,5 +58,5 @@ class ImportaHelper:
             query += " WHERE " + wherecampo + '=%s'
             return query
         except Exception as e:
-            self.logger.set_errors("Erro na linha %s do arquivo CSV." % linha)
+            self.logger.set_errors(self.error_message % linha)
             return None
