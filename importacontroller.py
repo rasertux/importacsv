@@ -1,3 +1,5 @@
+"""This module does imports, removes and updates from CSV to DB"""
+
 # importacsv - utilitario para importar, remover ou atualizar dados
 # a partir de arquivos CSV para o banco de dados Mysql ou MariaDB.
 #
@@ -25,6 +27,7 @@ from vendor.progress.bar import Bar
 
 
 class ImportaController:
+    """This class contain methods to import, remove and update"""
     def __init__(self, logger):
         self.logger = logger
         self.conexao = ConexaoFactory().get_conexao()
@@ -33,51 +36,54 @@ class ImportaController:
         self.imp = Importa()
 
     def importa_csv(self, path, tabela):
-        bar = Bar('Importando:', max=len(list(open(path, 'r')))-1)
+        """This method import data from CSV to DB"""
+        loadbar = Bar('Importando:', max=len(list(open(path, 'r')))-1)
         with open(path, 'r') as arquivocsv:
-            for linha, dict in enumerate(DictReader(arquivocsv)):
+            for linha, item in enumerate(DictReader(arquivocsv)):
                 self.imp.set_tabela(tabela)
-                self.imp.set_campos(list(dict.keys()))
-                self.imp.set_dados(list(dict.values()))
+                self.imp.set_campos(list(item.keys()))
+                self.imp.set_dados(list(item.values()))
                 query = self.helper.gera_query_insert(self.imp, linha+2)
-                if(not self.dao.run_query(self.imp, query)):
+                if not self.dao.run_query(self.imp, query):
                     break
                 if query:
-                    bar.next()
-        bar.finish()
-        return not self.logger.get_errors() if True else False
+                    loadbar.next()
+        loadbar.finish()
+        return True if not self.logger.get_errors() else False
 
     def remove_csv(self, path, tabela):
-        bar = Bar('Removendo:', max=len(list(open(path, 'r')))-1)
+        """This method remove data from DB using CSV column in where"""
+        loadbar = Bar('Removendo:', max=len(list(open(path, 'r')))-1)
         with open(path, 'r') as arquivocsv:
-            for linha, dict in enumerate(DictReader(arquivocsv)):
+            for linha, item in enumerate(DictReader(arquivocsv)):
                 self.imp.set_tabela(tabela)
-                self.imp.set_campos(list(dict.keys()))
-                self.imp.set_dados(list(dict.values()))
+                self.imp.set_campos(list(item.keys()))
+                self.imp.set_dados(list(item.values()))
                 query = self.helper.gera_query_delete(self.imp, linha+2)
-                if(not self.dao.run_query(self.imp, query)):
+                if not self.dao.run_query(self.imp, query):
                     break
                 if query:
-                    bar.next()
-        bar.finish()
-        return not self.logger.get_errors() if True else False
+                    loadbar.next()
+        loadbar.finish()
+        return True if not self.logger.get_errors() else False
 
     def atualiza_csv(self, path, tabela, where):
-        bar = Bar('Atualizando:', max=len(list(open(path, 'r')))-1)
+        """This method update data from CSV to DB"""
+        loadbar = Bar('Atualizando:', max=len(list(open(path, 'r')))-1)
         with open(path, 'r') as arquivocsv:
-            for linha, dict in enumerate(DictReader(arquivocsv)):
+            for linha, item in enumerate(DictReader(arquivocsv)):
                 self.imp.set_tabela(tabela)
-                if (not where or where not in dict):
+                if not where or where not in item:
                     self.logger.set_errors(
                         "Cláusula \"Where\" não informada ou inválida!")
                     break
-                self.imp.set_where({where: dict.pop(where)})
-                self.imp.set_campos(list(dict.keys()))
-                self.imp.set_dados(list(dict.values()))
+                self.imp.set_where({where: item.pop(where)})
+                self.imp.set_campos(list(item.keys()))
+                self.imp.set_dados(list(item.values()))
                 query = self.helper.gera_query_update(self.imp, linha+2)
-                if(not self.dao.run_query(self.imp, query)):
+                if not self.dao.run_query(self.imp, query):
                     break
                 if query:
-                    bar.next()
-        bar.finish()
-        return not self.logger.get_errors() if True else False
+                    loadbar.next()
+        loadbar.finish()
+        return True if not self.logger.get_errors() else False

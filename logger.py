@@ -1,3 +1,5 @@
+"""This module is a simple logger for importacsv"""
+
 # importacsv - utilitario para importar, remover ou atualizar dados
 # a partir de arquivos CSV para o banco de dados Mysql ou MariaDB.
 #
@@ -17,11 +19,14 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 class Logger:
+    """This class contain methods to get and set errors"""
     def __init__(self):
         self._errors = []
 
     def get_errors(self):
+        """This method get errors"""
         return self._errors
 
     def set_errors(self, errors):
+        """This method set errors"""
         self._errors.append(errors)

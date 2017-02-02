@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+"""This is the main module of the application"""
+
 # importacsv - utilitario para importar, remover ou atualizar dados
 # a partir de arquivos CSV para o banco de dados Mysql ou MariaDB.
 #
@@ -25,12 +27,14 @@ from logger import Logger
 
 
 class Main:
+    """This is the main class of the application"""
     def __init__(self):
         self.logger = Logger()
         self.control = ImportaController(self.logger)
 
     def main(self, argv):
-        if(len(argv) != 3):
+        """This method interacts with user"""
+        if len(argv) != 3:
             print("""
 Sintaxe:
     python main.py path tabela
@@ -40,40 +44,40 @@ OBS:
     A primeira linha da coluna do arquivo CSV
     deve possuir os nomes dos campos da tabela.
                 """)
-        elif(not os.path.isfile(argv[1])):
+        elif not os.path.isfile(argv[1]):
             sys.exit("Arquivo não encontrado!")
         else:
             path = argv[1]
             tabela = argv[2]
             action = input("""\
 Digite 1 para INSERT, 2 para DELETE, 3 para UPDATE ou 0 para SAIR: """)
-            if(action == '0'):
+            if action == '0':
                 sys.exit()
-            elif(action == '1'):
+            elif action == '1':
                 print("Processando, aguarde...")
-                if (self.control.importa_csv(path, tabela)):
+                if self.control.importa_csv(path, tabela):
                     print("Arquivo importado com sucesso!")
                 else:
                     for erro in self.logger.get_errors():
                         print(erro)
-            elif(action == '2'):
+            elif action == '2':
                 caution = input("""\
 Os dados serão removidos do Banco de Dados, continuar?
 'S' para Sim, 'N' para Não: """)
-                if(caution.upper() == "S"):
+                if caution.upper() == "S":
                     print("Processando, aguarde...")
-                    if (self.control.remove_csv(path, tabela)):
+                    if self.control.remove_csv(path, tabela):
                         print("Dados removidos com sucesso!")
                     else:
                         for erro in self.logger.get_errors():
                             print(erro)
                 else:
                     sys.exit()
-            elif(action == '3'):
+            elif action == '3':
                 where = input("""\
 Informe o nome do campo que será utilizado na cláusula where: """)
                 print("Processando, aguarde...")
-                if (self.control.atualiza_csv(path, tabela, where)):
+                if self.control.atualiza_csv(path, tabela, where):
                     print("Dados atualizados com sucesso!")
                 else:
                     for erro in self.logger.get_errors():

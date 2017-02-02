@@ -1,3 +1,5 @@
+"""This module does querys for import, delete and update"""
+
 # importacsv - utilitario para importar, remover ou atualizar dados
 # a partir de arquivos CSV para o banco de dados Mysql ou MariaDB.
 #
@@ -16,47 +18,48 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
-from importamodel import Importa
-
-
 class ImportaHelper:
+    """This class contain methods to create querys"""
     def __init__(self, logger):
         self.logger = logger
         self.error_message = "Erro na linha %s do arquivo CSV."
 
-    def gera_query_insert(self, Importa, linha):
-        dados = len(Importa.get_dados())
-        campos = Importa.get_campos()
-        tabela = Importa.get_tabela()
+    def gera_query_insert(self, importa, linha):
+        """This method create a import query"""
+        dados = len(importa.get_dados())
+        campos = importa.get_campos()
+        tabela = importa.get_tabela()
         try:
             query = "INSERT INTO %s(" % tabela
             query += ','.join(campos)
             query += ") VALUES(" + "%s," * (dados - 1) + "%s);"
             return query
-        except Exception as e:
+        except Exception:
             self.logger.set_errors(self.error_message % linha)
             return None
 
-    def gera_query_delete(self, Importa, linha):
-        campos = Importa.get_campos()
-        tabela = Importa.get_tabela()
+    def gera_query_delete(self, importa, linha):
+        """This method create a delete query"""
+        campos = importa.get_campos()
+        tabela = importa.get_tabela()
         try:
             query = "DELETE FROM %s WHERE " % tabela
             query += campos[0] + "=%s"
             return query
-        except Exception as e:
+        except Exception:
             self.logger.set_errors(self.error_message % linha)
             return None
 
-    def gera_query_update(self, Importa, linha):
-        campos = Importa.get_campos()
-        tabela = Importa.get_tabela()
+    def gera_query_update(self, importa, linha):
+        """This method create a update query"""
+        campos = importa.get_campos()
+        tabela = importa.get_tabela()
         try:
-            wherecampo = list(Importa.get_where().keys())[0]
+            wherecampo = list(importa.get_where().keys())[0]
             query = "UPDATE %s SET " % tabela
             query += '=%s,'.join(campos) + '=%s'
             query += " WHERE " + wherecampo + '=%s'
             return query
-        except Exception as e:
+        except Exception:
             self.logger.set_errors(self.error_message % linha)
             return None

@@ -1,3 +1,5 @@
+"""This module does data operations in DB"""
+
 # importacsv - utilitario para importar, remover ou atualizar dados
 # a partir de arquivos CSV para o banco de dados Mysql ou MariaDB.
 #
@@ -20,25 +22,27 @@ from vendor.mysql.connector import Error
 
 
 class ImportaDao:
+    """This class contain a method to run querys in DB"""
     def __init__(self, conexao, logger):
         self.conexao = conexao
         self.logger = logger
 
-    def run_query(self, Importa, query):
+    def run_query(self, importa, query):
+        """This method run a query on DB"""
         try:
             cursor = self.conexao.cursor()
-            dados = tuple(Importa.get_dados())
-            dados += tuple(Importa.get_where().values())
+            dados = tuple(importa.get_dados())
+            dados += tuple(importa.get_where().values())
             cursor.execute(query, dados)
             self.conexao.commit()
             return True
-        except Error as e:
+        except Error as error:
             self.conexao.rollback()
-            self.logger.set_errors(e)
+            self.logger.set_errors(error)
             return False
         finally:
             cursor.close()
 
     def __del__(self):
-        if(self.conexao.is_connected()):
+        if self.conexao.is_connected():
             self.conexao.close()
